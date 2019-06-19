@@ -1,0 +1,5 @@
+rootProject.name = 'accumulate-calculate'
+
+include 'server-web'
+
+project(":server-web").projectDir = "$rootDir/server-web" as File
