@@ -23,7 +23,7 @@ public class WebFluxController {
         return Mono
                 .just(Long.parseLong(value))
                 .publishOn(Schedulers.single())
-                .doOnNext(sum::add)
+                .doOnNext(sum::add)                                      // possible race condition
                 .flatMap(v -> Mono.from(calculateEventProcessor));
     }
 

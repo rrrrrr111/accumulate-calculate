@@ -39,7 +39,7 @@ class SimpleController {
         String result = String.valueOf(
                 list.stream()
                         .mapToLong(ExchangeData::getRequest)
-                        .sum()
+                        .sum()                             // possible Long overflow!!
         );
 
         list.forEach(d -> d.setResponse(result));
