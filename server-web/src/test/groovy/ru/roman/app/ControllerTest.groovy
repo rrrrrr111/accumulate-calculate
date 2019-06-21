@@ -26,9 +26,9 @@ class ControllerTest {
     @Test
     void test() {
 
-        accumulate(1)
-        accumulate(2)
-        accumulate(3)
+        accumulate(1, 6)
+        accumulate(2, 6)
+        accumulate(3, 6)
 
         sleep(1_000)
 
@@ -36,20 +36,20 @@ class ControllerTest {
         assert res == 6
     }
 
-    private def accumulate(Long num) {
+    private def accumulate(Long num, Long expected) {
         executor.submit {
             def res = client.target("http://127.0.0.1:8080/accumulate")
                     .request().post(Entity.entity(num.toString(), TEXT_PLAIN))
-                    .readEntity(Long.class)
+                    .readEntity(String.class)
 
-            assert res == 6
             println "Accumulate result: $res"
+            assert res == expected
         }
     }
 
     private Long calculate() {
         client.target("http://127.0.0.1:8080/calculate")
                 .request().get()
-                .readEntity(Long.class)
+                .readEntity(String.class) as Long
     }
 }

@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +14,14 @@ import java.util.concurrent.SynchronousQueue;
 /**
  * REST API Controller
  */
-@RestController
-class Controller {
-    private final static Logger log = LoggerFactory.getLogger(Controller.class);
+//@RestController
+class SimpleController {
+    private final static Logger log = LoggerFactory.getLogger(SimpleController.class);
 
     private final SynchronousQueue<ExchangeData> queue = new SynchronousQueue<>(true);
 
     @PostMapping(path = "/accumulate", consumes = "text/plain", produces = "text/plain")
-    public String accumulate(
-            @RequestBody String val) throws InterruptedException {
+    public String accumulate(@RequestBody String val) throws InterruptedException {
         log.trace("Accumulate call with {}", val);
 
         ExchangeData data = new ExchangeData(Long.valueOf(val));

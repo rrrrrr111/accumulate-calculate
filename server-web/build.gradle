@@ -4,29 +4,29 @@ apply plugin: 'application'
 apply plugin: 'groovy'
 
 configurations {
-    developmentOnly 
+    developmentOnly
     runtimeClasspath {
         extendsFrom developmentOnly
     }
 }
 
 dependencies {
-    developmentOnly("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
-    
-    compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-logging:${springBootVersion}")
-    
+    developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+
+//    compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+//    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+//    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+//    compile("org.springframework.boot:spring-boot-starter-logging:${springBootVersion}")
+    compile 'org.springframework.boot:spring-boot-starter-webflux'
+
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
     compile group: 'com.google.guava', name: 'guava', version: '27.0-jre'
 
-    runtime("org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}")
-
-    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    testCompile group: 'io.projectreactor', name: 'reactor-test', version: '3.2.10.RELEASE'
     testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
     testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.4'
-    
+
     testCompile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.28'
     testCompile 'org.glassfish.jersey.core:jersey-common:2.28'
     testCompile 'org.glassfish.jersey.inject:jersey-hk2:2.28'
@@ -39,14 +39,14 @@ dependencies {
 mainClassName = 'ru.roman.app.StartApp'
 
 springBoot {
-    buildInfo() 
+    buildInfo()
 }
 
 bootJar {
     baseName = 'server-web'
 }
 
-buildscript { 
+buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
